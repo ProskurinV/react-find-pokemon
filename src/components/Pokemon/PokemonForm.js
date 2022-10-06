@@ -18,7 +18,6 @@ export default class PokemonForm extends Component {
 
     if (this.state.pokemonName.trim() === '') {
       toast.error('write pokenonName!');
-
       return;
     }
 
