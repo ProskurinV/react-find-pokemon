@@ -1,6 +1,7 @@
 import { Component } from 'react';
 import { ImSearch } from 'react-icons/im';
 import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const styles = { form: { marginBottom: 20 } };
 
@@ -18,6 +19,7 @@ export default class PokemonForm extends Component {
 
     if (this.state.pokemonName.trim() === '') {
       toast.error('write pokenonName!');
+
       return;
     }
 

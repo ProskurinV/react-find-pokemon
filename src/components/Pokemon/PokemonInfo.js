@@ -1,26 +1,67 @@
-// export default class App extends Component {
-//   state = {
-//     pokemon: null,
-//     loading: false,
-//   };
+import { Component } from 'react';
+import PokemonErrorView from './PokemonErrorView';
+import PokemonDataView from './PokemonDataView';
+import PokemonPendingView from './PokemonPendingView';
+import PokemonApi from '../services/pokemon-api';
 
-//   componentDidMount() {
-//     this.setState({ loading: true });
-//     // const response = axios.get('ditto').then({ response });
+export default class PokemonInfo extends Component {
+  state = {
+    pokemon: null,
 
-//     fetch('https://pokeapi.co/api/v2/pokemon/ditto')
-//       .then(res => res.json())
-//       .then(pokemon => this.setState({ pokemon }))
-//       .finally(() => this.setState({ loading: false }));
-//   }
+    error: null,
+    status: 'idle',
+  };
 
-//   render() {
-//     const { pokemon, loading } = this.state;
-//     return (
-//       <div style={{ maxWidth: 1170, margin: '0 auto', padding: 20 }}>
-//         {loading && <h1>loading...</h1>}
-//         {pokemon && <div>{pokemon.name}</div>}
-//       </div>
-//     );
-//   }
-// }
+  componentDidUpdate(prevProps, prevState) {
+    const prevName = prevProps.pokemonName;
+    const nextName = this.props.pokemonName;
+
+    if (prevName !== nextName) {
+      this.setState({ status: 'pending' });
+
+      PokemonApi.fetchPokemon(nextName)
+        .then(pokemon => this.setState({ pokemon, status: 'resolved' }))
+        .catch(error => this.setState({ error, status: 'rejected' }));
+    }
+  }
+
+  render() {
+    const { pokemon, error, status } = this.state;
+    const { pokemonName } = this.props;
+
+    if (status === 'idle') {
+      return <div>Write Poke Name</div>;
+    }
+    if (status === 'pending') {
+      return <PokemonPendingView pokemonName={pokemonName} />;
+    }
+    if (status === 'rejected') {
+      return <PokemonErrorView message={error.message} />;
+    }
+    if (status === 'resolved') {
+      return <PokemonDataView pokemon={pokemon} />;
+    }
+
+    // return (
+    //   <div style={{ maxWidth: 1170, margin: '0 auto', padding: 20 }}>
+    //     <h1>PokemonInfo</h1>
+    //     {error && <h1>{error.message}</h1>}
+
+    //     {loading && <div>Loading...</div>}
+    //     {!this.props.pokemonName && <div>Write Poke Name</div>}
+    //     {pokemon && (
+    //       <div>
+    //         <p>{this.props.pokemonName}</p>
+    //         <img
+    //           src={pokemon.sprites.other['official-artwork'].front_default}
+    //           alt={this.props.pokemonName}
+    //           width="240"
+    //         />
+    //       </div>
+    //     )}
+    //   </div>
+    // );
+  }
+}
+
+// this.state.pokemon.name;
