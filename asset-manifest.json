@@ -1,14 +1,14 @@
 {
   "files": {
     "main.css": "/react-find-pokemon/static/css/main.a7dbea81.css",
-    "main.js": "/react-find-pokemon/static/js/main.b9a75019.js",
+    "main.js": "/react-find-pokemon/static/js/main.de5cb800.js",
     "static/media/error.jpg": "/react-find-pokemon/static/media/error.7d86105a62bf3b28ec78.jpg",
     "index.html": "/react-find-pokemon/index.html",
     "main.a7dbea81.css.map": "/react-find-pokemon/static/css/main.a7dbea81.css.map",
-    "main.b9a75019.js.map": "/react-find-pokemon/static/js/main.b9a75019.js.map"
+    "main.de5cb800.js.map": "/react-find-pokemon/static/js/main.de5cb800.js.map"
   },
   "entrypoints": [
     "static/css/main.a7dbea81.css",
-    "static/js/main.b9a75019.js"
+    "static/js/main.de5cb800.js"
   ]
 }
